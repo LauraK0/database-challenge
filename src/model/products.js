@@ -24,10 +24,13 @@ const search_products = db.prepare(/*sql*/ `
 
 const get_product = db.prepare(/*sql*/ `
   SELECT
-    id,
-    name
+    products.id,
+    products.name,
+    categories.name AS category_name,
+    categories.description AS category_description
   FROM products
-  WHERE id = ?
+  JOIN categories ON products.category_id = categories.id
+  WHERE products.id = ?
 `);
 
 function listProducts() {
